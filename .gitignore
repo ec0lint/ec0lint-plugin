@@ -1,0 +1,14 @@
+### OSX ###
+.DS_Store
+
+### intellij ###
+.idea/
+out/
+
+*.iml
+
+### plugin binary ###
+eslint-plugin.jar
+eslint-plugin.zip
+
+temp
