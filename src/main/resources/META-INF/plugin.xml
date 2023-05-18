@@ -1,0 +1,62 @@
+<idea-plugin url="https://github.com/ec0lint/ec0lint-plugin">
+    <id>com.wix.ec0lint</id>
+    <name>Ec0lint</name>
+    <version>1.0.1</version>
+    <vendor email="ec0lint@tutanota.com" url="https://github.com/ec0lint/ec0lint-plugin">Ido</vendor>
+    <category>HTML/JavaScript Development</category>
+    <description><![CDATA[
+      Ec0lint intellij integration.<br>
+      <p>Support displaying ec0lint warnings as intellij inspections</p>
+      <p>Support for custom ec0lint rules</p>
+      <p>Support for ec0lint config annotation and completion</p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+       <p>1.0.1 First version.</p>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.lang</depends>
+    <!--<depends>com.intellij.modules.platform</depends>-->
+    <depends>JavaScript</depends>
+    <!--<depends optional="true" config-file="config.xml">org.jetbrains.plugins.yaml</depends>-->
+
+    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="139"/>
+
+    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <projectService serviceImplementation="com.ec0lint.settings.Settings"/>
+        <projectConfigurable instance="com.ec0lint.settings.Ec0lintSettingsPage" displayName="Ec0lint Settings"/>
+        <localInspection language="JavaScript" groupPath="JavaScript" shortName="Ec0lintInspection"
+                         enabledByDefault="true" level="ERROR"
+                         bundle="com.ec0lint.Ec0lintBundle"
+                         implementationClass="com.ec0lint.Ec0lintInspection"
+                         displayName="Ec0lint" groupKey="ec0lint.inspection.group.name"/>
+        <!--unfair="true" runForWholeFile="true" level="WARNING" -->
+        <externalAnnotator language="JavaScript" implementationClass="com.ec0lint.Ec0lintExternalAnnotator"/>
+
+        <!-- annotate .ec0lintrc -->
+        <projectService serviceImplementation="com.ec0lint.config.Ec0lintConfigFileListener"/>
+        <fileTypeFactory implementation="com.ec0lint.config.Ec0lintConfigFileTypeFactory"/>
+
+        <!--<completion.contributor order="first" language="JavaScript" implementationClass="com.ec0lint.config.Ec0lintConfigCompletionContributor"/>-->
+        <!--<annotator language="JSON" implementationClass="com.ec0lint.config.Ec0lintConfigAnnotator"/>-->
+    </extensions>
+
+    <application-components>
+        <!-- Add your application components here -->
+    </application-components>
+
+    <project-components>
+        <!-- Add your project components here -->
+        <component>
+            <implementation-class>com.ec0lint.Ec0lintProjectComponent</implementation-class>
+        </component>
+    </project-components>
+</idea-plugin>
